@@ -1,0 +1,76 @@
+{
+  "name": "react-transfer",
+  "version": "1.0.0",
+  "description": "Rendering components in a different location.",
+  "author": "Takaaki Watanabe",
+  "browser": "dist/react-transfer.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src"
+  ],
+  "scripts": {
+    "example": "cross-env NODE_ENV=server webpack-dev-server --config webpack.example.js",
+    "example:build": "npm run example:src && npm run example:src:min && npm run example:es5:lib && npm run example:es5:lib:min",
+    "example:src": "cross-env NODE_ENV=development webpack --verbose --colors --display-error-details --config webpack.example.js",
+    "example:src:min": "cross-env NODE_ENV=production webpack --verbose --colors --display-error-details --config webpack.example.js",
+    "example:es5:lib": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js example/es5/lib/react-transfer.js",
+    "example:es5:lib:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js example/es5/lib/react-transfer.min.js",
+    "prepublish": "npm run clean && npm run lint && npm run test && npm run build && npm run example:build",
+    "clean": "rimraf dist lib es example/dist",
+    "lint": "eslint -c .eslintrc src",
+    "test": "cross-env NODE_ENV=test mocha --compilers babel-register --recursive ./test",
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js dist/react-transfer.js",
+    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js dist/react-transfer.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nabepon/react-transfer.git"
+  },
+  "keywords": [
+    "react",
+    "z-index",
+    "modal",
+    "drawer menu",
+    "position",
+    "fixed",
+    "transfer"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nabepon/react-transfer/issues"
+  },
+  "homepage": "https://github.com/nabepon/react-transfer#readme",
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.24.1",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "7.0.0",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.23.0",
+    "babel-preset-env": "1.5.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "6.24.1",
+    "cross-env": "1.0.8",
+    "eslint": "3.19.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-react": "7.0.1",
+    "mocha": "3.4.1",
+    "power-assert": "1.4.2",
+    "react-dom": "^15.5.4",
+    "rimraf": "2.6.1",
+    "webpack": "2.5.1",
+    "webpack-dev-server": "2.4.5"
+  },
+  "dependencies": {
+    "prop-types": "15.5.10",
+    "react": "15.5.4"
+  }
+}
