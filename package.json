@@ -22,7 +22,7 @@
     "example:es5:lib:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js example/es5/lib/react-transfer.min.js",
     "prepublish": "npm run clean && npm run lint && npm run test && npm run build && npm run example:build",
     "clean": "rimraf dist lib es example/dist",
-    "lint": "eslint -c .eslintrc src test",
+    "lint": "eslint -c .eslintrc src test example/src",
     "test": "cross-env NODE_ENV=test mocha --compilers babel-register --recursive ./test",
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
